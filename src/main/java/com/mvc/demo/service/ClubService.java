@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ClubService{
 
-    Club createClub(Club club);
+    void createClub(Club club);
 
     List<ClubDto> findAllClub();
 }

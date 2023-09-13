@@ -17,9 +17,10 @@ public class ClubServiceImpl implements ClubService{
         this.clubRepository = clubRepository;
     }
 
+
     @Override
-    public Club createClub(Club club) {
-        return null;
+    public void createClub(Club club) {
+        clubRepository.save(club);
     }
 
     @Override
