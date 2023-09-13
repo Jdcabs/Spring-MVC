@@ -1,46 +1,28 @@
-package com.mvc.demo.model;
+package com.mvc.demo.dto;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.SourceType;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.stereotype.Component;
+import lombok.Builder;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Entity
-@Component
-public class Club {
-    @Id
-    @SequenceGenerator(allocationSize = 1,
-            name = "clubId",
-            sequenceName = "clubId")
-    @GeneratedValue(generator = "clubId",
-            strategy = GenerationType.IDENTITY)
+@Builder
+public class ClubDto {
+
     private Long id;
-    @Column(nullable = false,
-            length = 150)
     private String title;
-    @Column(nullable = false)
     private String photoUrl;
-    @Column(nullable = false,
-            length = 150)
     private String content;
-    @Column(nullable = false)
-    @CreationTimestamp(source = SourceType.DB)
     private LocalDateTime createdOn;
-    @Column(nullable = false)
-    @UpdateTimestamp(source = SourceType.DB)
     private LocalDateTime updatedAt;
 
-    public Club() {}
+    public ClubDto() {}
 
-    public Club(String title,
-                String photoUrl,
-                String content,
-                LocalDateTime createdOn,
-                LocalDateTime updatedAt) {
+    public ClubDto(Long id, String title,
+                   String photoUrl,
+                   String content,
+                   LocalDateTime createdOn,
+                   LocalDateTime updatedAt) {
+        this.id = id;
         this.title = title;
         this.photoUrl = photoUrl;
         this.content = content;
@@ -48,12 +30,13 @@ public class Club {
         this.updatedAt = updatedAt;
     }
 
+
     public Long getId() {
         return id;
     }
 
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     public String getPhotoUrl() {
@@ -99,18 +82,18 @@ public class Club {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Club club)) return false;
-        return Objects.equals(getId(), club.getId()) && Objects.equals(getTitle(), club.getTitle()) && Objects.equals(getPhotoUrl(), club.getPhotoUrl()) && Objects.equals(getContent(), club.getContent()) && Objects.equals(getCreatedOn(), club.getCreatedOn()) && Objects.equals(getUpdatedAt(), club.getUpdatedAt());
+        if (!(o instanceof ClubDto clubDto)) return false;
+        return Objects.equals(id, clubDto.id) && Objects.equals(title, clubDto.title) && Objects.equals(photoUrl, clubDto.photoUrl) && Objects.equals(content, clubDto.content) && Objects.equals(createdOn, clubDto.createdOn) && Objects.equals(updatedAt, clubDto.updatedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getPhotoUrl(), getContent(), getCreatedOn(), getUpdatedAt());
+        return Objects.hash(id, title, photoUrl, content, createdOn, updatedAt);
     }
 
     @Override
     public String toString() {
-        return "Club{" +
+        return "ClubDto{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", photoUrl='" + photoUrl + '\'' +
